@@ -1,0 +1,17 @@
+{
+  "name": "coronaApp",
+  "displayName": "coronaApp",
+  "expo": {
+    "name": "coronaApp",
+    "slug": "coronaApp",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
