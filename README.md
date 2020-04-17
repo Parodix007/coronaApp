@@ -1,2 +1,2 @@
 # coronaApp
-Mobile app
+Aplikacja mobilna do sprawdzania koronawirusa w wybranym przez usera kraju
