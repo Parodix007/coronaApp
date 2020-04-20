@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
     APIcontainer:{
         height:200,
-        width:width,
+        width: width,
         marginTop: 40,
         flex:2,
         alignItems:'center',
@@ -27,6 +27,17 @@ const styles = StyleSheet.create({
     userSection: {
       flex: 1,
       width: width,
+    },
+
+    Modal: {
+      height: 200,
+      width: 300,
+      alignSelf: 'center',
+      top:200,
+      borderWidth: 1,
+      borderColor: 'black',
+      padding: 20,
+      backgroundColor: 'white',
     }
 })
 

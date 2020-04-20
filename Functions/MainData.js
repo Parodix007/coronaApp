@@ -1,6 +1,8 @@
+// !!!!!!!!!!!!!!!!!!!!!!!!Dodaj funkcjonalnosc do modala, buttony do szukania i do anulowania wyswieltania modala, wystlizuj przycisk na glownej stronie pokazujacy modala!!!!!!!!!!!!!!!
+
 import React from 'react'
 
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, Text, Button, TextInput, Alert, Modal } from 'react-native'
 
 import styles from './FunStyles/MainDataStyle'
 
@@ -12,11 +14,13 @@ class MainData extends React.Component{
       dead: 0,
       recovered: 0,
       location: "Poland",
-      new: 0
+      new: 0,
+      modal: false
     };
 
 
     _searchFun = () => {
+
       let dane = ""
 
       fetch(`https://covid-193.p.rapidapi.com/statistics?country=${this.state.location}`, {
@@ -26,7 +30,7 @@ class MainData extends React.Component{
       		"x-rapidapi-key": "c5a3cb0bf5msh8ddf0bdd20db605p12b483jsn5661d04d9293"
       	}
       })
-      .then(response => dane = response.json() )
+      .then( response => dane = response.json() )
       .then(() => {
         this.setState({conf: this.state.conf = dane._55.response[0]['cases']['total'], dead: this.state.dead = dane._55.response[0]['deaths']['total'], recovered: this.state.recovered = dane._55.response[0]['cases']['recovered'], new: this.state.new = dane._55.response[0]['cases']['new']  })
       })
@@ -34,7 +38,7 @@ class MainData extends React.Component{
       	console.error(err);
       });
 
-    }
+    };
 
     componentDidMount() {
         this._searchFun()
@@ -44,6 +48,23 @@ class MainData extends React.Component{
     render(){
         return(
             <>
+                <View>
+                  <Modal animationType='slide' visible={this.state.modal} transparent={true}>
+                    <View style={styles.Modal}>
+                      <TextInput
+                        placeholder='wpisz nazwe kraju...'
+                        placeholderTextColor="#696969"
+                        onEndEditing={ (e) =>{
+                          e.nativeEvent.text === "" ? this.setState({location: this.state.location = "Poland"}) : this.setState({location: this.state.location = e.nativeEvent.text})
+                          return this._searchFun()
+                        }}
+                        style={{borderBottomWidth: 1, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
+                      />
+                    </View>
+                  </Modal>
+                </View>
+
+
                 <View style={styles.container}>
                     <Text style={styles.header}>
                         {this.state.location.toUpperCase()}:
@@ -57,15 +78,7 @@ class MainData extends React.Component{
 
                     <View style={styles.userSection}>
                         <View style={styles.innerUserSection}>
-                          <TextInput
-                            placeholder='wpisz nazwe kraju...'
-                            placeholderTextColor="#696969"
-                            onEndEditing={(e) => {
-                              e.nativeEvent.text === "" ? this.setState({location: this.state.location = "Poland"}) : this.setState({location: this.state.location = e.nativeEvent.text})
-                              return this._searchFun()
-                            }}
-                            style={{borderBottomWidth: 1, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
-                          />
+                        <Button title='Szukaj' onPress={() => this.setState({modal: this.state.modal = true})} />
                         </View>
                     </View>
                 </View>
