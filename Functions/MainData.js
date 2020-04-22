@@ -59,7 +59,7 @@ class MainData extends React.Component{
                           e.nativeEvent.text === "" ? false : this.setState({location: this.state.location = e.nativeEvent.text.toUpperCase(), modal: this.state.modal = false})
                           return this._searchFun()
                         }}
-                        style={{borderBottomWidth: 1, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
+                        style={{borderBottomWidth: 0.3, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
                       />
                       <View style={styles.modalButtons}>
                         <Button title="Anuluj" onPress={() => this.setState({modal: this.state.modal = false})} color="#DC143C"/>

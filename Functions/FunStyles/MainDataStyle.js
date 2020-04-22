@@ -39,18 +39,19 @@ const styles = StyleSheet.create({
       width: 300,
       alignSelf: 'center',
       top:200,
-      borderWidth: 1,
+      borderWidth: 0.5,
       borderColor: 'black',
       padding: 20,
       backgroundColor: 'white',
       borderRadius: 8,
       shadowColor: "#000",
       shadowOffset: {
-        width: 0,
-        height: 2
+      	width: 0,
+      	height: 11,
       },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
+      shadowOpacity: 0.57,
+      shadowRadius: 15.19,
+      elevation: 23
     },
 
     modalHeader: {
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
 
     modalButtons: {
       flex: 1,
-      justifyContent: 'center'
+      justifyContent: 'center',
     }
 })
 
