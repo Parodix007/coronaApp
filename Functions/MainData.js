@@ -71,7 +71,7 @@ class MainData extends React.Component{
 
                 <View style={styles.container}>
                     <Text style={styles.header}>
-                        {this.state.location || "Poland"}:
+                        {this.state.location || "POLAND"}:
                     </Text>
                     <View style={styles.APIcontainer}>
                         <Text style={{fontSize:30, margin: 10}}><Text style={{color:'#1E90FF'}}>Lacznie: </Text>{this.state.conf}</Text>
