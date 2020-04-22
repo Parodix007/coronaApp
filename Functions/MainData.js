@@ -1,4 +1,4 @@
-// !!!!!!!!!!!!!!!!!!!!!!!!Dodaj funkcjonalnosc do modala, buttony do szukania i do anulowania wyswieltania modala, wystlizuj przycisk na glownej stronie pokazujacy modala!!!!!!!!!!!!!!!
+//Code made by Sebastian Siarczyński
 
 import React from 'react'
 
@@ -13,7 +13,7 @@ class MainData extends React.Component{
       conf: 0,
       dead: 0,
       recovered: 0,
-      location: "Poland",
+      location: false,
       new: 0,
       modal: false
     };
@@ -23,7 +23,7 @@ class MainData extends React.Component{
 
       let dane = ""
 
-      fetch(`https://covid-193.p.rapidapi.com/statistics?country=${this.state.location}`, {
+      fetch(`https://covid-193.p.rapidapi.com/statistics?country=${this.state.location || "Poland"}`, {
       	"method": "GET",
       	"headers": {
       		"x-rapidapi-host": "covid-193.p.rapidapi.com",
@@ -49,17 +49,21 @@ class MainData extends React.Component{
         return(
             <>
                 <View>
-                  <Modal animationType='slide' visible={this.state.modal} transparent={true}>
+                  <Modal animationType='fade' visible={this.state.modal} transparent={true}>
                     <View style={styles.Modal}>
+                      <Text style={styles.modalHeader}>Wyszukaj kraj...</Text>
                       <TextInput
                         placeholder='wpisz nazwe kraju...'
                         placeholderTextColor="#696969"
                         onEndEditing={ (e) =>{
-                          e.nativeEvent.text === "" ? this.setState({location: this.state.location = "Poland"}) : this.setState({location: this.state.location = e.nativeEvent.text})
+                          e.nativeEvent.text === "" ? false : this.setState({location: this.state.location = e.nativeEvent.text.toUpperCase(), modal: this.state.modal = false})
                           return this._searchFun()
                         }}
                         style={{borderBottomWidth: 1, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
                       />
+                      <View style={styles.modalButtons}>
+                        <Button title="Anuluj" onPress={() => this.setState({modal: this.state.modal = false})} color="#DC143C"/>
+                      </View>
                     </View>
                   </Modal>
                 </View>
@@ -67,7 +71,7 @@ class MainData extends React.Component{
 
                 <View style={styles.container}>
                     <Text style={styles.header}>
-                        {this.state.location.toUpperCase()}:
+                        {this.state.location || "Poland"}:
                     </Text>
                     <View style={styles.APIcontainer}>
                         <Text style={{fontSize:30, margin: 10}}><Text style={{color:'#1E90FF'}}>Lacznie: </Text>{this.state.conf}</Text>
@@ -78,7 +82,7 @@ class MainData extends React.Component{
 
                     <View style={styles.userSection}>
                         <View style={styles.innerUserSection}>
-                        <Button title='Szukaj' onPress={() => this.setState({modal: this.state.modal = true})} />
+                        <Button title='Szukaj' onPress={() => this.setState({modal: this.state.modal = true})} color='#228B22' />
                         </View>
                     </View>
                 </View>
