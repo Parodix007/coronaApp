@@ -1,11 +1,19 @@
 //Code made by Sebastian Siarczyński
 
+//Dodaj do reduxa fetchowanie danych 
+
 import React from 'react'
 
-import { View, Text, Button, TextInput, Alert, Modal } from 'react-native'
+import { View, Text, Button, TextInput, Modal } from 'react-native'
 
 import styles from './FunStyles/MainDataStyle'
+import { createStore } from 'redux'
+import { connect } from 'react-redux'
+import { reducer } from "./reducer.js"
+import { actionModal } from "./actions"
 
+
+export const store = createStore(reducer)
 
 class MainData extends React.Component{
 
@@ -15,7 +23,6 @@ class MainData extends React.Component{
       recovered: 0,
       location: false,
       new: 0,
-      modal: false
     };
 
 
@@ -46,10 +53,15 @@ class MainData extends React.Component{
 
 
     render(){
+
+        const { setModal, modal } = this.props
+
+
+
         return(
             <>
                 <View>
-                  <Modal animationType='fade' visible={this.state.modal} transparent={true}>
+                  <Modal animationType='fade' visible={modal} transparent={true}>
                     <View style={styles.Modal}>
                       <Text style={styles.modalHeader}>Wyszukaj kraj...</Text>
                       <TextInput
@@ -59,10 +71,10 @@ class MainData extends React.Component{
                           e.nativeEvent.text === "" ? false : this.setState({location: this.state.location = e.nativeEvent.text.toUpperCase(), modal: this.state.modal = false})
                           return this._searchFun()
                         }}
-                        style={{borderBottomWidth: 0.3, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
+                        style={{borderBottomWidth: 0.5, borderBottomColor: 'black', margin: 10, height:50, padding: 5}}
                       />
                       <View style={styles.modalButtons}>
-                        <Button title="Anuluj" onPress={() => this.setState({modal: this.state.modal = false})} color="#DC143C"/>
+                        <Button title="Anuluj" onPress={setModal} color="#DC143C"/>
                       </View>
                     </View>
                   </Modal>
@@ -82,7 +94,7 @@ class MainData extends React.Component{
 
                     <View style={styles.userSection}>
                         <View style={styles.innerUserSection}>
-                        <Button title='Szukaj' onPress={() => this.setState({modal: this.state.modal = true})} color='#228B22' />
+                        <Button title='Szukaj' onPress={setModal} color='#228B22' />
                         </View>
                     </View>
                 </View>
@@ -91,5 +103,18 @@ class MainData extends React.Component{
     }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    modal: state.modal
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setModal: () => dispatch(actionModal())
+  }
+}
+
+MainData = connect(mapStateToProps, mapDispatchToProps)(MainData)
 
 export default MainData

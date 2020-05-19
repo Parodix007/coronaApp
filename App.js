@@ -1,15 +1,12 @@
 import React from 'react';
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
   View,
-  Text,
-  Button,
-  StatusBar,
-  FlatList,
 } from 'react-native';
 
+import { Provider } from 'react-redux'
+import { store } from './Functions/MainData'
 import styles from './style/style'
 import MainData from './Functions/MainData'
 
@@ -21,9 +18,11 @@ class App extends React.Component{
           <SafeAreaView>
             <ScrollView contentInsetAdjustmentBehavior="automatic">
                 <View style={styles.container}>
+                  <Provider store={store}>
                     <View style={styles.mainView}>
-                        <MainData />
+                      <MainData />
                     </View>
+                  </Provider>
                 </View>
             </ScrollView>
           </SafeAreaView>
